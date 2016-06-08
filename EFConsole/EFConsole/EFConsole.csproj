@@ -73,6 +73,9 @@
     <Compile Include="Course.cs">
       <DependentUpon>ContosoUniversityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="CourseCredit.cs">
+      <DependentUpon>ContosoUniversityModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Department.cs">
       <DependentUpon>ContosoUniversityModel.tt</DependentUpon>
     </Compile>

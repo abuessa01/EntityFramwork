@@ -11,22 +11,21 @@ namespace EFConsole
         static void Main(string[] args)
         {
             #region mark
-            //using (var db = new ContosoUniversityEntities())
-            //{
 
             #region demo1 利用EF撈資料
-            //Console.WriteLine("\t");
-            //Console.WriteLine("demo1-------------------\t");
+            //using (var db = new ContosoUniversityEntities())
+            //{
             //foreach (var item in db.Course)
             //{
             //    Console.WriteLine(item.Title + "\t" + item.DepartmentID);
 
             //}
+            //}
             #endregion
 
             #region demo2 利用EF撈資料(1對多)
-            //Console.WriteLine("\t");
-            //Console.WriteLine("demo2-------------------\t");
+            //using (var db = new ContosoUniversityEntities())
+            //{
             //foreach (var item in db.Department)
             //{
             //    Console.WriteLine(item.Name);
@@ -35,11 +34,12 @@ namespace EFConsole
             //        Console.WriteLine("\t" + course.Title);
             //    }
             //}
+            //}
             #endregion
 
             #region dmmo3 CU data
-            //Console.WriteLine("\t");
-            //Console.WriteLine("demo3-------------------\t");
+            //using (var db = new ContosoUniversityEntities())
+            //{
             ////新增
             //var newCouse = new Course()
             //{
@@ -55,21 +55,24 @@ namespace EFConsole
             //var c = db.Course.Find(8);
             //c.ModifyOn = DateTime.Now;
             //db.SaveChanges();
+            //}
             #endregion
 
             #region demo4 trace sql
-            //Console.WriteLine("\t");
-            //Console.WriteLine("demo4: trace sql-------------------\t");
+            //using (var db = new ContosoUniversityEntities())
+            //{
             //db.Database.Log = (msg) =>
             //{
             //    Console.WriteLine(msg);
             //};
 
             //Console.WriteLine("\t");
+            //}
             #endregion
 
             #region demo5 entry.state
-            //Console.WriteLine("demo4:狀態-------------------\t");
+            //using (var db = new ContosoUniversityEntities())
+            //{
             //var c = db.Course.Find(8);
             //var ce = db.Entry(c);
             //Console.WriteLine(ce.State);
@@ -79,14 +82,12 @@ namespace EFConsole
             //db.SaveChanges();
             ////複製
             ////db.Entry(c).State = System.Data.Entity.EntityState.Added;
-            #endregion
+
 
             //}
-
+            #endregion
 
             #region demo6 離線
-            //    Console.WriteLine("\t");
-            //Console.WriteLine("demo5:離線-------------------\t");
             //var d = new Course()
             //{
             //    CourseID = 0,
@@ -119,15 +120,49 @@ namespace EFConsole
 
             #endregion
 
+            #region demo8 預存程序對應
+            //using (var db = new ContosoUniversityEntities())
+            //{
+            //    db.Database.Log = Console.WriteLine;
+            //    var c = db.Department.Find(2);
+            //    db.Entry(c).State = System.Data.Entity.EntityState.Added;
+
+            //    db.SaveChanges();
+            //}
+            #endregion
+
+            #region demo 9 列舉
+            //using (var db = new ContosoUniversityEntities())
+            //{
+                //新增複選列舉
+                //var c = db.Course.Find(8);
+                //c.Credits = CourseCredit.中級 | CourseCredit.高級;
+
+                //db.SaveChanges();
+                //查詢含有特定列舉, use flag
+            //    var d = db.Course.Where(p => p.Credits.HasFlag(CourseCredit.低級) || p.Credits.HasFlag(CourseCredit.中級));
+            //    foreach (var item in d)
+            //    {
+            //        Console.WriteLine(item.CourseID + ":" + item.Credits + "\t");
+            //    }
+            //}
+            #endregion
+
             #endregion
 
             using (var db = new ContosoUniversityEntities())
             {
-                db.Database.Log = Console.WriteLine;
-                var c = db.Department.Find(2);
-                db.Entry(c).State = System.Data.Entity.EntityState.Added;
+                //新增複選列舉
+                //var c = db.Course.Find(8);
+                //c.Credits = CourseCredit.中級 | CourseCredit.高級;
 
-                db.SaveChanges();
+                //db.SaveChanges();
+                //查詢含有特定列舉, use flag
+                var d = db.Course.Where(p => p.Credits.HasFlag(CourseCredit.低級) || p.Credits.HasFlag(CourseCredit.中級));
+                foreach (var item in d)
+                {
+                    Console.WriteLine(item.CourseID + ":" +item.Credits +"\t");
+                }
             }
         }
     }
