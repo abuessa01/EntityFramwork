@@ -62,7 +62,7 @@ namespace EFConsole
                 Console.WriteLine(ce.State);
                 //db.Course.Remove(c);
                 //直接變動狀態也可進行資料異動
-                c.Title = "EF3";
+                c.Title = "EF2";
                 db.SaveChanges();
                 //複製
                 //db.Entry(c).State = System.Data.Entity.EntityState.Added;

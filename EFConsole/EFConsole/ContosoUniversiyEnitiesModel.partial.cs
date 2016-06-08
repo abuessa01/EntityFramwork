@@ -19,6 +19,8 @@ namespace EFConsole
                     if (entry.Entity is Course)
                     {
                         var a = entry.Entity as Course;
+                        var title = entry.OriginalValues.GetValue<string>("Title");
+                        Console.WriteLine("old:" + title);
                         Console.WriteLine(entry.State);
                         Console.WriteLine(a.Title);
                     }
