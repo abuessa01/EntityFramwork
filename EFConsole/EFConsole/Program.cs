@@ -10,8 +10,10 @@ namespace EFConsole
     {
         static void Main(string[] args)
         {
+            var c = new Course();
             using (var db = new ContosoUniversityEntities())
             {
+                #region mark
                 //Console.WriteLine("\t");
                 //Console.WriteLine("demo1-------------------\t");
                 //foreach (var item in db.Course)
@@ -55,18 +57,48 @@ namespace EFConsole
                 //    Console.WriteLine(msg);
                 //};
 
-                Console.WriteLine("\t");
-                Console.WriteLine("demo4:狀態-------------------\t");
-                var c = db.Course.Find(8);
-                var ce = db.Entry(c);
-                Console.WriteLine(ce.State);
-                //db.Course.Remove(c);
-                //直接變動狀態也可進行資料異動
-                c.Title = "EF2";
-                db.SaveChanges();
-                //複製
-                //db.Entry(c).State = System.Data.Entity.EntityState.Added;
+                //Console.WriteLine("\t");
+                //Console.WriteLine("demo4:狀態-------------------\t");
+                //var c = db.Course.Find(8);
+                //var ce = db.Entry(c);
+                //Console.WriteLine(ce.State);
+                ////db.Course.Remove(c);
+                ////直接變動狀態也可進行資料異動
+                //c.Title = "EF2";
+                //db.SaveChanges();
+                ////複製
+                ////db.Entry(c).State = System.Data.Entity.EntityState.Added;
+                #endregion
+
+                c = db.Course.Find(8);
+                c.Credits += 1;
             }
+
+            using (var db1 = new ContosoUniversityEntities())
+            {
+                db1.Entry(c).State = System.Data.Entity.EntityState.Modified;
+                db1.SaveChanges();
+            }
+
+            #region demo 離線
+            //    Console.WriteLine("\t");
+            //Console.WriteLine("demo5:離線-------------------\t");
+            //var d = new Course()
+            //{
+            //    CourseID = 0,
+            //    Title = "EF",
+            //    Credits = 1,
+            //    DepartmentID = 2,
+            //    CreateOn = DateTime.Now.AddDays(1)
+            //};
+
+            //using (var db1 = new ContosoUniversityEntities())
+            //{
+            //    db1.Course.Attach(d);//離線物件變成連線，可以用attach，會有快取的狀況
+            //    db1.Entry(d).State = System.Data.Entity.EntityState.Added;
+            //    db1.SaveChanges();
+            //}
+            #endregion
         }
     }
 }
