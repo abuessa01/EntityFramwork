@@ -120,8 +120,15 @@ namespace EFConsole
             #endregion
 
             #endregion
-            
 
+            using (var db = new ContosoUniversityEntities())
+            {
+                db.Database.Log = Console.WriteLine;
+                var c = db.Department.Find(2);
+                db.Entry(c).State = System.Data.Entity.EntityState.Added;
+
+                db.SaveChanges();
+            }
         }
     }
 
